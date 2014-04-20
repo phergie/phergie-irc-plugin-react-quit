@@ -16,14 +16,23 @@ The recommended method of installation is [through composer](http://getcomposer.
 }
 ```
 
-See Phergie documentation for more information on installing plugins.
+See Phergie documentation for more information on
+[installing and enabling plugins](https://github.com/phergie/phergie-irc-bot-react/wiki/Usage#plugins).
+
+Note that this plugin depends on the
+[Command plugin](https://github.com/phergie/phergie-irc-plugin-react-command)
+plugin, which is installed as a dependency by composer but must still be
+enabled in your Phergie configuration file to be available to this plugin.
 
 ## Configuration
 
 ```php
 new \Phergie\Irc\Plugin\React\Quit\Plugin(array(
 
-
+    // Optional: sprintf-compatible template for the message sent when the bot
+    // quits; takes one parameter, a string containing the nick of the user who
+    // initiated the command to quit
+    'message' => 'because %s said so',
 
 ))
 ```
