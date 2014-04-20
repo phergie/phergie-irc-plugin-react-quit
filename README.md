@@ -1,6 +1,6 @@
 # phergie/phergie-irc-plugin-react-quit
 
-[Phergie](http://github.com/phergie/phergie-irc-bot-react/) phergie for providing a command to instruct the bot to terminate a connection....
+[Phergie](http://github.com/phergie/phergie-irc-bot-react/) plugin for providing a command to instruct the bot to terminate a connection.
 
 [![Build Status](https://secure.travis-ci.org/phergie/phergie-irc-plugin-react-quit.png?branch=master)](http://travis-ci.org/phergie/phergie-irc-plugin-react-quit)
 
