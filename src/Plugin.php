@@ -51,7 +51,8 @@ class Plugin extends AbstractPlugin
 
     /**
      * Indicates that the plugin monitors events for a "quit" command emitted
-     * by the Command plugin.
+     * by the Command plugin and a corresponding help event emitted by the
+     * CommandHelp plugin.
      *
      * @return array
      */
@@ -59,6 +60,7 @@ class Plugin extends AbstractPlugin
     {
         return array(
             'command.quit' => 'handleQuitCommand',
+            'command.quit.help' => 'handleQuitHelp',
         );
     }
 
@@ -73,5 +75,30 @@ class Plugin extends AbstractPlugin
     {
         $message = sprintf($this->message, $event->getNick());
         $queue->ircQuit($message);
+    }
+
+    /**
+     * Displays help information for the quit command.
+     *
+     * @param \Phergie\Irc\Plugin\React\Command\CommandEvent $event
+     * @param \Phergie\Irc\Bot\React\EventQueueInterface $queue
+     */
+    public function handleQuitHelp(CommandEvent $event, EventQueueInterface $queue)
+    {
+        $messages = array(
+            'Usage: quit',
+            'Requests that the bot terminate its connection to the current server.',
+            'See https://tools.ietf.org/html/rfc2812#section-3.1.7',
+        );
+
+        $method = 'irc' . $event->getCommand();
+        $targets = $event->getTargets();
+        $target = reset($targets);
+        if ($target === $event->getConnection()->getNickname()) {
+            $target = $event->getNick();
+        }
+        foreach ($messages as $message) {
+            $queue->$method($target, $message);
+        }
     }
 }
