@@ -55,43 +55,21 @@ class PluginTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Data provider for testHandleHelp().
-     *
-     * @return array
-     */
-    public function dataProviderHandleHelp()
-    {
-        $data = array();
-        $data[] = array('#channel', '#channel');
-        $data[] = array('bot', 'user');
-        return $data;
-    }
-
-    /**
      * Tests handleQuitHelp().
-     *
-     * @param string $requestTarget
-     * @param string $responseTarget
-     * @dataProvider dataProviderHandleHelp
      */
-    public function testHandleHelp($requestTarget, $responseTarget)
+    public function testHandleHelp()
     {
-        $connection = $this->getMockConnection();
-        Phake::when($connection)->getNickname()->thenReturn('bot');
-
         $event = $this->getMockCommandEvent();
         Phake::when($event)->getCustomParams()->thenReturn(array());
-        Phake::when($event)->getConnection()->thenReturn($connection);
         Phake::when($event)->getCommand()->thenReturn('PRIVMSG');
-        Phake::when($event)->getTargets()->thenReturn(array($requestTarget));
-        Phake::when($event)->getNick()->thenReturn('user');
+        Phake::when($event)->getSource()->thenReturn('#channel');
         $queue = $this->getMockEventQueue();
 
         $plugin = new Plugin;
         $plugin->handleQuitHelp($event, $queue);
 
         Phake::verify($queue, Phake::atLeast(1))
-            ->ircPrivmsg($responseTarget, $this->isType('string'));
+            ->ircPrivmsg('#channel', $this->isType('string'));
     }
 
     /**
@@ -101,16 +79,6 @@ class PluginTest extends \PHPUnit_Framework_TestCase
     {
         $plugin = new Plugin;
         $this->assertInternalType('array', $plugin->getSubscribedEvents());
-    }
-
-    /**
-     * Returns a mock connection.
-     *
-     * @return \Phergie\Irc\ConnectionInterface
-     */
-    protected function getMockConnection()
-    {
-        return Phake::mock('\Phergie\Irc\ConnectionInterface');
     }
 
     /**
