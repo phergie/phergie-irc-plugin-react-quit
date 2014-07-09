@@ -8,11 +8,12 @@
  * @package Phergie\Irc\Plugin\React\Quit
  */
 
-namespace Phergie\Irc\Plugin\React\Quit;
+namespace Phergie\Irc\Tests\Plugin\React\Quit;
 
 use Phake;
 use Phergie\Irc\Bot\React\EventQueueInterface;
 use Phergie\Irc\Plugin\React\Command\CommandEvent;
+use Phergie\Irc\Plugin\React\Quit\Plugin;
 
 /**
  * Tests for the Plugin class.
