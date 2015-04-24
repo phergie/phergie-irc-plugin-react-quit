@@ -27,14 +27,20 @@ enabled in your Phergie configuration file to be available to this plugin.
 ## Configuration
 
 ```php
-new \Phergie\Irc\Plugin\React\Quit\Plugin(array(
-
-    // Optional: sprintf-compatible template for the message sent when the bot
-    // quits; takes one parameter, a string containing the nick of the user who
-    // initiated the command to quit
-    'message' => 'because %s said so',
-
-))
+return array(
+    'plugins' = array(
+        new \Phergie\Irc\Plugin\React\Command\Plugin, // dependency
+        
+        new \Phergie\Irc\Plugin\React\Quit\Plugin(array(
+        
+            // Optional: sprintf-compatible template for the message sent when the bot
+            // quits; takes one parameter, a string containing the nick of the user who
+            // initiated the command to quit
+            'message' => 'because %s said so',
+        
+        )),
+    )
+);
 ```
 
 ## Tests
