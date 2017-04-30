@@ -8,12 +8,8 @@
 
 The recommended method of installation is [through composer](http://getcomposer.org).
 
-```JSON
-{
-    "require": {
-        "phergie/phergie-irc-plugin-react-quit": "~2"
-    }
-}
+```
+composer require phergie/phergie-irc-plugin-react-quit
 ```
 
 See Phergie documentation for more information on
